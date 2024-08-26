@@ -4,6 +4,7 @@ import { collection,getDocs,query, where } from 'firebase/firestore';
 import {db} from './../../config/FirebaseCongig';
 import { useUser } from '@clerk/clerk-expo';
 import UserItem from '../../components/Inbox/UserItem';
+import Colors from '../../constants/Colors';
 const Inbox = () => {
     const {user}=useUser();
     const [userList,setUserList]=useState([]);
@@ -48,7 +49,7 @@ const Inbox = () => {
             <FlatList 
             refreshing={loader}
             onRefresh={()=>GetUserList()}
-            style={{marginTop:20}}
+            style={styles.list}
             data={MapOtherUserList()}
             renderItem={({item,index})=>(
                 <UserItem userInfo={item} key={index} />
@@ -58,6 +59,13 @@ const Inbox = () => {
     );
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    list:{
+        marginTop:20,
+        display:'flex',
+        gap:20,
+        height:'100%'
+    },
+})
 
 export default Inbox;

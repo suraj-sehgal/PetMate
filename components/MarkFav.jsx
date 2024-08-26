@@ -13,7 +13,7 @@ const MarkFav = ({pet,color='black'}) => {
     
     const GetFav =async ()=>{
         const result = await Shared.GetFaVList(user)
-        setFavList(result.favourites?result.favourites:[])
+        setFavList(result?.favourites?result?.favourites:[])
     }
 
     const addToFav = async ()=>{

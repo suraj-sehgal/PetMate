@@ -65,7 +65,7 @@ const UserPost = () => {
                 refreshing={loader}
                 onRefresh={()=>GetUserPostList()}
                 renderItem={({item,index})=>(
-                    <View tyle={styles.container}>
+                    <View style={styles.container}>
                         <PetListItem pet={item} key={index} />
                         <Pressable onPress={()=>onDeletePost(item?.id)} style={styles.deleteButton} >
                             <Ionicons name="trash" size={24} color={Colors.GRAY} />
@@ -81,11 +81,10 @@ const UserPost = () => {
 const styles = StyleSheet.create({
     container:{
         backgroundColor:Colors.WHITE,
+        borderRadius:10,
     },
     deleteButton:{
-        position:'absolute',
-        bottom:10,
-        right:70,
+        alignSelf:'center',
     }
 })
 

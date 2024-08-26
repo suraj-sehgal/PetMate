@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Header from '../../components/Home/Header';
 import Slider from '../../components/Home/Slider';
 import PetListByCategory from '../../components/Home/PetListByCategory';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Colors from '../../constants/Colors';
-import { Link } from 'expo-router';
+import { Link, Redirect } from 'expo-router';
+import { useUser } from '@clerk/clerk-expo';
+import { useRoute } from '@react-navigation/native';
 
 const Home = () => {
+    const {user}=useUser();
+    const route = useRoute();
+
+  // Accessing query parameters
+  console.log(route)
+  const { created_session_id, rotating_token_nonce } = route.params || {};
+    console.log(created_session_id,rotating_token_nonce)
+    if(!created_session_id && !user){
+        return <Redirect href={'/login/'}/>
+    }
+
     return (
         <View style={{
             padding: 20,

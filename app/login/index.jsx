@@ -2,8 +2,9 @@ import React, { useCallback } from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import  Colors  from './../../constants/Colors';
 import * as WebBrowser from 'expo-web-browser'
-import { useOAuth } from '@clerk/clerk-expo'
+import { useOAuth, useUser } from '@clerk/clerk-expo'
 import * as Linking from 'expo-linking'
+import { Redirect } from 'expo-router';
 
 export const useWarmUpBrowser = () => {
     React.useEffect(() => {
@@ -21,6 +22,13 @@ export const useWarmUpBrowser = () => {
 
 const LoginScreen = () => {
 
+    const {user}=useUser();
+
+    console.log(user,"user")
+    if(user){
+        return <Redirect href={'/(tabs)/home'}/>
+    }
+
     useWarmUpBrowser()
 
     const { startOAuthFlow } = useOAuth({ strategy: 'oauth_google' })
@@ -30,10 +38,12 @@ const LoginScreen = () => {
         const { createdSessionId, signIn, signUp, setActive } = await startOAuthFlow({
           redirectUrl: Linking.createURL('/(tabs)/home', { scheme: 'myapp' }),
         })
-  
-        if (createdSessionId) {
-            
+
+        console.log("hello1",createdSessionId)
+        if (createdSessionId) {   
+            setActive({ session: createdSessionId })
         } else {
+            return <Redirect href={'/login/'}/>
           // Use signIn or signUp for next steps such as MFA
         }
       } catch (err) {
