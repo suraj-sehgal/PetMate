@@ -32,7 +32,7 @@ const LoginScreen = () => {
         })
   
         if (createdSessionId) {
-
+            
         } else {
           // Use signIn or signUp for next steps such as MFA
         }

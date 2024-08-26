@@ -13,7 +13,7 @@ export default function Index() {
   },[])
 
   const CheckNavLoaded = () =>{
-    if(!rootNavigationState.key)
+    if(!rootNavigationState?.key)
       return null;
   }
   console.log(user)
@@ -25,7 +25,7 @@ export default function Index() {
       }}
     >
       {user?<Redirect href={'/(tabs)/home'}/>
-      :<Redirect href={'/login/login'} />}
+      :<Redirect href={'/login/'} />}
     </View>
   );
 }
